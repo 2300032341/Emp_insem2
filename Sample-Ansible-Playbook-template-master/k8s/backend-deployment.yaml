@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ems-backend
+  labels:
+    app: ems-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ems-backend
+  template:
+    metadata:
+      labels:
+        app: ems-backend
+    spec:
+      containers:
+      - name: ems-backend
+        image: <your_dockerhub_username>/ems-backend:1.0
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - configMapRef:
+            name: ems-config
